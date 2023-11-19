@@ -1,5 +1,9 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using Photon.Pun;
+
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -27,6 +31,8 @@ public class PlayerMovement : MonoBehaviour
     private bool canFire;
     private bool timerStarted;
 
+    PhotonView view;
+
     private void Start()
     {
         //life = healthController.hearts.Length;
@@ -36,40 +42,43 @@ public class PlayerMovement : MonoBehaviour
         bulletPrefab = bullet[0];
         canFire = true;
         timerStarted = false;
+        view = GetComponent<PhotonView>();
     }
 
     void Update()
     {
-        // Player movement input
-        horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
-        animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
-
-        // Jumping input
-        if (Input.GetButtonDown("Jump"))
+        if (view.IsMine)
         {
-            jump = true;
-            animator.SetBool("IsJumping", true);
-        }
+            // Player movement input
+            horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
+            animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
 
-        // Crouch input
-        if (Input.GetButtonDown("Crouch"))
-        {
-            crouch = true;
-        }
-        else if (Input.GetButtonUp("Crouch"))
-        {
-            crouch = false;
-        }
+            // Jumping input
+            if (Input.GetButtonDown("Jump"))
+            {
+                jump = true;
+                animator.SetBool("IsJumping", true);
+            }
 
-        // Update animator for crouching
-        onCrouching(crouch);
+            // Crouch input
+            if (Input.GetButtonDown("Crouch"))
+            {
+                crouch = true;
+            }
+            else if (Input.GetButtonUp("Crouch"))
+            {
+                crouch = false;
+            }
 
-        // Firing input
-        if (Input.GetButton("Fire1") && canFire)
-        {
-            StartCoroutine(Fire());
+            // Update animator for crouching
+            onCrouching(crouch);
+
+            // Firing input
+            if (Input.GetButton("Fire1") && canFire)
+            {
+                StartCoroutine(Fire());
+            }
         }
-
     }
 
     public void OnLanding()
