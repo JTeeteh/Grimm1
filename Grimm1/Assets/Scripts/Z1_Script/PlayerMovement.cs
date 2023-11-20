@@ -1,11 +1,8 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using Photon.Pun;
 
-
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviourPun
 {
     public CharacterController2D controller;
     public HealthController healthController;
@@ -35,9 +32,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
-        //life = healthController.hearts.Length;
-
-        // Weapon initialization
         fireRate = 10f;
         bulletPrefab = bullet[0];
         canFire = true;
@@ -47,20 +41,17 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if (view.IsMine)
+        if (photonView.IsMine)
         {
-            // Player movement input
             horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
             animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
 
-            // Jumping input
             if (Input.GetButtonDown("Jump"))
             {
                 jump = true;
                 animator.SetBool("IsJumping", true);
             }
 
-            // Crouch input
             if (Input.GetButtonDown("Crouch"))
             {
                 crouch = true;
@@ -70,10 +61,8 @@ public class PlayerMovement : MonoBehaviour
                 crouch = false;
             }
 
-            // Update animator for crouching
             onCrouching(crouch);
 
-            // Firing input
             if (Input.GetButton("Fire1") && canFire)
             {
                 StartCoroutine(Fire());
@@ -93,7 +82,6 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        // Move character
         controller.Move(horizontalMove * Time.fixedDeltaTime, crouch, jump);
         jump = false;
     }
@@ -126,10 +114,49 @@ public class PlayerMovement : MonoBehaviour
 
     void Shoot(bool isCrouching)
     {
-        if (!isCrouching)
-            Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-        else
-            Instantiate(bulletPrefab, firePointCrouch.position, firePointCrouch.rotation);
+        if (photonView.IsMine)
+        {
+            // Spawn the local player's bullet only for themselves
+            GameObject bullet = null;
+            if (!isCrouching)
+            {
+                bullet = PhotonNetwork.Instantiate(bulletPrefab.name, firePoint.position, firePoint.rotation);
+            }
+            else
+            {
+                bullet = PhotonNetwork.Instantiate(bulletPrefab.name, firePointCrouch.position, firePointCrouch.rotation);
+            }
+
+            // Disable the renderer for the local player's bullets on the network
+            if (bullet != null && !bullet.GetPhotonView().IsMine)
+            {
+                Renderer bulletRenderer = bullet.GetComponent<Renderer>();
+                if (bulletRenderer != null)
+                {
+                    bulletRenderer.enabled = false;
+                }
+            }
+
+            photonView.RPC("ShootRPC", RpcTarget.Others, isCrouching);
+        }
+    }
+
+    [PunRPC]
+    void ShootRPC(bool isCrouching)
+    {
+        // Spawn the remote player's bullet for all players
+        if (photonView.IsMine)
+        {
+            GameObject bullet = null;
+            if (!isCrouching)
+            {
+                bullet = PhotonNetwork.Instantiate(bulletPrefab.name, firePoint.position, firePoint.rotation);
+            }
+            else
+            {
+                bullet = PhotonNetwork.Instantiate(bulletPrefab.name, firePointCrouch.position, firePointCrouch.rotation);
+            }
+        }
     }
 
     IEnumerator Fire()
@@ -144,7 +171,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (target.tag == "Weapon")
         {
-            // Weapon pickup logic
             if (target.name == gun[0].name)
             {
                 bulletPrefab = bullet[0];
