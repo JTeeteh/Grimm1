@@ -28,6 +28,11 @@ public class PlayerMovement : MonoBehaviourPun
     private bool canFire;
     private bool timerStarted;
 
+    // Buff system variables
+    private bool isBuffActive = false;
+    private float buffDuration = 10f;
+    private float timeLeftForBuff;
+
     PhotonView view;
 
     private void Start()
@@ -171,34 +176,73 @@ public class PlayerMovement : MonoBehaviourPun
     {
         if (target.tag == "Weapon")
         {
-            if (target.name == gun[0].name)
+            // Check if the buff is not already active
+            if (!isBuffActive)
             {
-                bulletPrefab = bullet[0];
-                fireRate = 10f;
-            }
-            else if (target.name == gun[1].name)
-            {
-                bulletPrefab = bullet[1];
-                fireRate = 5f;
-            }
-            else if (target.name == gun[2].name)
-            {
-                bulletPrefab = bullet[2];
-                fireRate = 25f;
-            }
-            else if (target.name == gun[3].name)
-            {
-                bulletPrefab = bullet[3];
-                fireRate = 20f;
-            }
-            else if (target.name == gun[4].name)
-            {
-                bulletPrefab = bullet[4];
-                fireRate = 0.5f;
-            }
+                if (target.name == gun[0].name)
+                {
+                    ApplyBuff(bullet[0], 10f);
+                }
+                else if (target.name == gun[1].name)
+                {
+                    ApplyBuff(bullet[1], 5f);
+                }
+                else if (target.name == gun[2].name)
+                {
+                    ApplyBuff(bullet[2], 25f);
+                }
+                else if (target.name == gun[3].name)
+                {
+                    ApplyBuff(bullet[3], 20f);
+                }
+                else if (target.name == gun[4].name)
+                {
+                    ApplyBuff(bullet[4], 0.5f);
+                }
 
-            Debug.Log("Gun pickup - upgrade.");
-            Destroy(target.gameObject);
+                Debug.Log("Gun pickup - upgrade.");
+                Destroy(target.gameObject);
+            }
         }
+    }
+
+    private void ApplyBuff(GameObject newBulletPrefab, float newFireRate)
+    {
+        // Apply the buff
+        bulletPrefab = newBulletPrefab;
+        fireRate = newFireRate;
+
+        // Start the buff timer
+        isBuffActive = true;
+        timeLeftForBuff = buffDuration;
+
+        // Start the timer coroutine
+        if (!timerStarted)
+        {
+            StartCoroutine(BuffTimer());
+            timerStarted = true;
+        }
+    }
+
+    private IEnumerator BuffTimer()
+    {
+        while (timeLeftForBuff > 0)
+        {
+            yield return new WaitForSeconds(1f);
+            timeLeftForBuff--;
+
+            // Optionally, you can update UI to display the remaining time
+            // UIManager.UpdateBuffTimer(timeLeftForBuff);
+        }
+
+        // Buff timer is finished, reset to default bullet
+        bulletPrefab = bullet[0];
+        fireRate = 10f;
+        isBuffActive = false;
+
+        // Optionally, you can update UI to indicate that the buff has ended
+        // UIManager.DisplayBuffEnded();
+
+        timerStarted = false; // Reset the timer flag
     }
 }
