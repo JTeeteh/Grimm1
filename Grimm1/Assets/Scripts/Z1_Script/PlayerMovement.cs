@@ -171,39 +171,43 @@ public class PlayerMovement : MonoBehaviourPun
         yield return new WaitForSeconds(1f / fireRate);
         canFire = true;
     }
-
+    [PunRPC]
     private void OnTriggerEnter2D(Collider2D target)
     {
-        if (target.tag == "Weapon")
+        if (photonView.IsMine)
         {
-            // Check if the buff is not already active
-            if (!isBuffActive)
+            if (target.tag == "Weapon")
             {
-                if (target.name == gun[0].name)
+                // Check if the buff is not already active
+                if (!isBuffActive)
                 {
-                    ApplyBuff(bullet[0], 10f);
-                }
-                else if (target.name == gun[1].name)
-                {
-                    ApplyBuff(bullet[1], 5f);
-                }
-                else if (target.name == gun[2].name)
-                {
-                    ApplyBuff(bullet[2], 25f);
-                }
-                else if (target.name == gun[3].name)
-                {
-                    ApplyBuff(bullet[3], 20f);
-                }
-                else if (target.name == gun[4].name)
-                {
-                    ApplyBuff(bullet[4], 0.5f);
-                }
+                    if (target.name == gun[0].name)
+                    {
+                        ApplyBuff(bullet[0], 10f);
+                    }
+                    else if (target.name == gun[1].name)
+                    {
+                        ApplyBuff(bullet[1], 5f);
+                    }
+                    else if (target.name == gun[2].name)
+                    {
+                        ApplyBuff(bullet[2], 25f);
+                    }
+                    else if (target.name == gun[3].name)
+                    {
+                        ApplyBuff(bullet[3], 20f);
+                    }
+                    else if (target.name == gun[4].name)
+                    {
+                        ApplyBuff(bullet[4], 0.5f);
+                    }
 
-                Debug.Log("Gun pickup - upgrade.");
-                Destroy(target.gameObject);
+                    Debug.Log("Gun pickup - upgrade.");
+                    Destroy(target.gameObject);
+                }
             }
         }
+        
     }
 
     private void ApplyBuff(GameObject newBulletPrefab, float newFireRate)
