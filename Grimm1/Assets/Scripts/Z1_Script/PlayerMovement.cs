@@ -207,10 +207,9 @@ public class PlayerMovement : MonoBehaviourPun
                 }
             }
         }
-        
     }
 
-    private void ApplyBuff(GameObject newBulletPrefab, float newFireRate)
+    public void ApplyBuff(GameObject newBulletPrefab, float newFireRate)
     {
         // Apply the buff
         bulletPrefab = newBulletPrefab;
