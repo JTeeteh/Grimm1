@@ -33,6 +33,11 @@ public class PlayerMovement : MonoBehaviourPun
     private float buffDuration = 10f;
     private float timeLeftForBuff;
 
+    public GameObject localIndicatorPrefab;
+    public Transform playerIndicator;
+
+    private GameObject localIndicator; // Declare localIndicator at the class level
+
     PhotonView view;
 
     private void Start()
@@ -42,7 +47,21 @@ public class PlayerMovement : MonoBehaviourPun
         canFire = true;
         timerStarted = false;
         view = GetComponent<PhotonView>();
+
+        if (photonView.IsMine)
+        {
+            // Instantiate the local indicator only for the local player
+            if (playerIndicator != null)
+            {
+                localIndicator = Instantiate(localIndicatorPrefab, playerIndicator);
+            }
+            else
+            {
+                Debug.LogError("PlayerIndicator transform is not set. Please assign it in the Inspector.");
+            }
+        }
     }
+
 
     void Update()
     {
@@ -248,4 +267,13 @@ public class PlayerMovement : MonoBehaviourPun
 
         timerStarted = false; // Reset the timer flag
     }
+    void OnDestroy()
+    {
+        // Destroy the local indicator only for the local player when the player is destroyed
+        if (photonView.IsMine && localIndicator != null)
+        {
+            Destroy(localIndicator);
+        }
+    }
+
 }
