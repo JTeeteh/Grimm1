@@ -10,6 +10,9 @@ TagManager:
   - NextLevel
   - wall
   - PrevLevel
+  - Bound
+  - Platform
+  - Ground
   layers:
   - Default
   - TransparentFX

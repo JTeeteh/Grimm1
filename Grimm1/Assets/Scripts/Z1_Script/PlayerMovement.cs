@@ -257,8 +257,6 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
             yield return new WaitForSeconds(1f);
             timeLeftForBuff--;
 
-            // Optionally, you can update UI to display the remaining time
-            // UIManager.UpdateBuffTimer(timeLeftForBuff);
         }
 
         // Buff timer is finished, reset to default bullet
@@ -266,8 +264,6 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
         fireRate = 10f;
         isBuffActive = false;
 
-        // Optionally, you can update UI to indicate that the buff has ended
-        // UIManager.DisplayBuffEnded();
 
         timerStarted = false; // Reset the timer flag
     }

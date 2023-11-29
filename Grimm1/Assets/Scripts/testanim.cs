@@ -15,7 +15,7 @@ public class testanim : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.A))
         {
-            this.GetComponent<Animator>().Play("attack");
+            this.GetComponent<Animator>().Play("idle_anim");
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
