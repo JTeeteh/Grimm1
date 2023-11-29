@@ -7504,6 +7504,10 @@ PrefabInstance:
       value: Monster_final
       objectReference: {fileID: 0}
     - target: {fileID: 5897275840592186453, guid: 51a43701229e6804d90a58ddedfd85ab, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5897275840592186453, guid: 51a43701229e6804d90a58ddedfd85ab, type: 3}
       propertyPath: m_TagString
       value: Untagged
       objectReference: {fileID: 0}
