@@ -1,35 +1,33 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class HealthController : MonoBehaviour
 {
-    public GameObject[] hearts;
-    private int life;
+    public float life;
     private bool dead;
-    // Start is called before the first frame update
+    [SerializeField]
+    private GameObject hpbar;
 
     private void Start()
     {
-        life = hearts.Length;
+        // If you're not using an array, you might initialize life to a default value
+        life = 5; // You can adjust this value based on your needs
     }
-    // Update is called once per frame
+
     void Update()
     {
-     if (dead == true)
-        {
-            Debug.Log("GameOver");
-        }
+        hpbar.transform.localScale = new Vector2(0.6302553f * (life / 5), 0.03f);
+
     }
+
     public void TakeDamage(int d)
     {
         life -= d;
-        Destroy(hearts[life].gameObject);
-        if(life == 0)
+        if (life <= 0)
         {
-            SceneManager.LoadScene("GameOver");
+            life = 0;
         }
     }
 }

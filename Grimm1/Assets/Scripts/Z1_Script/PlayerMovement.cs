@@ -2,10 +2,9 @@ using System.Collections;
 using UnityEngine;
 using Photon.Pun;
 
-public class PlayerMovement : MonoBehaviourPun
+public class PlayerMovement : MonoBehaviourPun, IPunObservable
 {
     public CharacterController2D controller;
-    public HealthController healthController;
     public BoxCollider2D boxCollider;
     public Animator animator;
     public float runSpeed = 40f;
@@ -15,37 +14,38 @@ public class PlayerMovement : MonoBehaviourPun
     bool jump = false;
     bool canBeDamaged = true;
 
-    public static int life = 5;
-
     // Weapon-related variables
     public Transform firePoint, firePointCrouch;
     private GameObject bulletPrefab;
     public GameObject[] bullet;
     public GameObject[] gun;
 
-    private float nextTimeOfFire = 0;
-    public float fireRate;
-    private bool canFire;
-    private bool timerStarted;
+    public float fireRate = 10f;
+    private bool canFire = true;
+    private bool timerStarted = false;
 
     // Buff system variables
     private bool isBuffActive = false;
-    private float buffDuration = 10f;
+
+    public float buffDuration = 10f;
     private float timeLeftForBuff;
 
+    //playerindicator
     public GameObject localIndicatorPrefab;
     public Transform playerIndicator;
 
     private GameObject localIndicator; // Declare localIndicator at the class level
 
+    public float life;
+
+    [SerializeField]
+    private GameObject hpbar;
+
     PhotonView view;
 
     private void Start()
     {
-        fireRate = 10f;
         bulletPrefab = bullet[0];
-        canFire = true;
-        timerStarted = false;
         view = GetComponent<PhotonView>();
 
         if (photonView.IsMine)
@@ -60,8 +60,8 @@ public class PlayerMovement : MonoBehaviourPun
                 Debug.LogError("PlayerIndicator transform is not set. Please assign it in the Inspector.");
             }
         }
+        life = 5;
     }
-
 
     void Update()
     {
@@ -92,6 +92,8 @@ public class PlayerMovement : MonoBehaviourPun
                 StartCoroutine(Fire());
             }
         }
+
+        hpbar.transform.localScale = new Vector2(0.6302553f * (life / 5), 0.03f);
     }
 
     public void OnLanding()
@@ -116,8 +118,9 @@ public class PlayerMovement : MonoBehaviourPun
         {
             if (canBeDamaged)
             {
-                healthController.TakeDamage(1);
+                TakeDamage(1);
                 IFrame();
+                Debug.Log("llllllllll");
             }
         }
     }
@@ -190,6 +193,7 @@ public class PlayerMovement : MonoBehaviourPun
         yield return new WaitForSeconds(1f / fireRate);
         canFire = true;
     }
+
     [PunRPC]
     private void OnTriggerEnter2D(Collider2D target)
     {
@@ -267,6 +271,7 @@ public class PlayerMovement : MonoBehaviourPun
 
         timerStarted = false; // Reset the timer flag
     }
+
     void OnDestroy()
     {
         // Destroy the local indicator only for the local player when the player is destroyed
@@ -276,4 +281,25 @@ public class PlayerMovement : MonoBehaviourPun
         }
     }
 
+    public void TakeDamage(int d)
+    {
+        life -= d;
+        if (life <= 0)
+        {
+            life = 0;
+        }
+    }
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            // We own this player: send the others our data
+            stream.SendNext(life);
+        }
+        else
+        {
+            // Network player, receive data
+            life = (float)stream.ReceiveNext();
+        }
+    }
 }
