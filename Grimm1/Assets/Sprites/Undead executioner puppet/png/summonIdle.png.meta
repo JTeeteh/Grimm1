@@ -137,71 +137,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0c22d291cf54b334daa48fd0cfa0eaf0
-      internalID: 274009169
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: summonIdle_1
-      rect:
-        serializedVersion: 2
-        x: 69
-        y: 12
-        width: 10
-        height: 20
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: fce2782fa5a655d48b6a5567108d30ce
-      internalID: 1545666072
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: summonIdle_2
-      rect:
-        serializedVersion: 2
-        x: 119
-        y: 12
-        width: 10
-        height: 20
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d3d8cd255b87ca9489aacbf6f60ca277
-      internalID: -88688837
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: summonIdle_3
-      rect:
-        serializedVersion: 2
-        x: 169
-        y: 12
-        width: 10
-        height: 20
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1080a2777e4206f4fb9e8cd7cdf0d396
-      internalID: -756161179
+      spriteID: 95de59d702f3a3f90800000000000000
+      internalID: -6973191664251310759
       vertices: []
       indices: 
       edges: []
@@ -209,7 +146,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -217,10 +154,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      summonIdle_0: 274009169
-      summonIdle_1: 1545666072
-      summonIdle_2: -88688837
-      summonIdle_3: -756161179
+      summonIdle_0: -6973191664251310759
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

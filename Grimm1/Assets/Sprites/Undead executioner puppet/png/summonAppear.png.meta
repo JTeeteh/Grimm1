@@ -137,113 +137,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 92a0d3621b94e0149961c83ee94dfd08
-      internalID: -450316041
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: summonAppear_1
-      rect:
-        serializedVersion: 2
-        x: 70
-        y: 62
-        width: 8
-        height: 8
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8274c7eaf10d2d24db67a7c92a7ab426
-      internalID: 869572540
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: summonAppear_2
-      rect:
-        serializedVersion: 2
-        x: 120
-        y: 62
-        width: 8
-        height: 8
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d610f1a3e8472bb4c9cddc354379feb0
-      internalID: -1811109713
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: summonAppear_3
-      rect:
-        serializedVersion: 2
-        x: 19
-        y: 12
-        width: 10
-        height: 15
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f037f93d18651034c94f3929ae4240b6
-      internalID: -1614563228
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: summonAppear_4
-      rect:
-        serializedVersion: 2
-        x: 69
-        y: 12
-        width: 10
-        height: 15
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: dc19fd820a10fbe448ab0bcb69a59f1a
-      internalID: -1775325461
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: summonAppear_5
-      rect:
-        serializedVersion: 2
-        x: 119
-        y: 12
-        width: 10
-        height: 20
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 949cf0a5563355b419fdb958d118ac76
-      internalID: -1953959152
+      spriteID: 543962731cc917340800000000000000
+      internalID: 4859837826577371973
       vertices: []
       indices: 
       edges: []
@@ -251,7 +146,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -259,12 +154,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      summonAppear_0: -450316041
-      summonAppear_1: 869572540
-      summonAppear_2: -1811109713
-      summonAppear_3: -1614563228
-      summonAppear_4: -1775325461
-      summonAppear_5: -1953959152
+      summonAppear_0: 4859837826577371973
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

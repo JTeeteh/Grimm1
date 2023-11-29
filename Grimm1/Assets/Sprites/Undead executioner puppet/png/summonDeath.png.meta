@@ -137,92 +137,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f58eca82b57a71c408a1cb31bdf649bf
-      internalID: 684666387
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: summonDeath_1
-      rect:
-        serializedVersion: 2
-        x: 69
-        y: 64
-        width: 8
-        height: 18
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ecde8229bca29a24e9bbd231ab2f120e
-      internalID: -1728817183
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: summonDeath_2
-      rect:
-        serializedVersion: 2
-        x: 121
-        y: 68
-        width: 8
-        height: 14
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f4cd387005fdf6141aa81330202cd1f7
-      internalID: 2040845468
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: summonDeath_3
-      rect:
-        serializedVersion: 2
-        x: 22
-        y: 23
-        width: 6
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e018a99897a0ba0418f633fc50991b2d
-      internalID: 1758408351
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: summonDeath_4
-      rect:
-        serializedVersion: 2
-        x: 71
-        y: 25
-        width: 6
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 00b864ddc2ab6a44b95e579dc6379e7e
-      internalID: 500507031
+      spriteID: a1d96bffd17978e90800000000000000
+      internalID: -7023478938760995558
       vertices: []
       indices: 
       edges: []
@@ -230,7 +146,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -238,11 +154,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      summonDeath_0: 684666387
-      summonDeath_1: -1728817183
-      summonDeath_2: 2040845468
-      summonDeath_3: 1758408351
-      summonDeath_4: 500507031
+      summonDeath_0: -7023478938760995558
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
