@@ -351,11 +351,10 @@ MonoBehaviour:
   - {fileID: 8512074587090229805, guid: 7ace4fa2d4dcaad44a8fb865e40dbc7f, type: 3}
   - {fileID: 979745704053731816, guid: 5d759a49563e251449731423718579c4, type: 3}
   fireRate: 0
-  buffDuration: 10
   localIndicatorPrefab: {fileID: 9027182265499639806, guid: 975dda5b9e6b69744a8b469819d0cbca, type: 3}
   playerIndicator: {fileID: 1014213024193928292}
-  life: 5
   hpbar: {fileID: 7967950183933134315}
+  life: 5
 --- !u!95 &5168269451489752883
 Animator:
   serializedVersion: 5

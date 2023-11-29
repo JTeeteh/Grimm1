@@ -20,32 +20,34 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
     public GameObject[] bullet;
     public GameObject[] gun;
 
-    public float fireRate = 10f;
-    private bool canFire = true;
-    private bool timerStarted = false;
+    private float nextTimeOfFire = 0;
+    public float fireRate;
+    private bool canFire;
+    private bool timerStarted;
 
     // Buff system variables
     private bool isBuffActive = false;
-
-    public float buffDuration = 10f;
+    private float buffDuration = 10f;
     private float timeLeftForBuff;
 
-    //playerindicator
     public GameObject localIndicatorPrefab;
     public Transform playerIndicator;
 
     private GameObject localIndicator; // Declare localIndicator at the class level
 
-    public float life;
-
     [SerializeField]
     private GameObject hpbar;
+
+    public float life;
 
     PhotonView view;
 
     private void Start()
     {
+        fireRate = 10f;
         bulletPrefab = bullet[0];
+        canFire = true;
+        timerStarted = false;
         view = GetComponent<PhotonView>();
 
         if (photonView.IsMine)
@@ -62,6 +64,7 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
         }
         life = 5;
     }
+
 
     void Update()
     {
@@ -92,7 +95,6 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
                 StartCoroutine(Fire());
             }
         }
-
         hpbar.transform.localScale = new Vector2(0.6302553f * (life / 5), 0.03f);
     }
 
@@ -193,7 +195,6 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
         yield return new WaitForSeconds(1f / fireRate);
         canFire = true;
     }
-
     [PunRPC]
     private void OnTriggerEnter2D(Collider2D target)
     {
@@ -257,6 +258,8 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
             yield return new WaitForSeconds(1f);
             timeLeftForBuff--;
 
+            // Optionally, you can update UI to display the remaining time
+            // UIManager.UpdateBuffTimer(timeLeftForBuff);
         }
 
         // Buff timer is finished, reset to default bullet
@@ -264,10 +267,11 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
         fireRate = 10f;
         isBuffActive = false;
 
+        // Optionally, you can update UI to indicate that the buff has ended
+        // UIManager.DisplayBuffEnded();
 
         timerStarted = false; // Reset the timer flag
     }
-
     void OnDestroy()
     {
         // Destroy the local indicator only for the local player when the player is destroyed
@@ -276,7 +280,6 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
             Destroy(localIndicator);
         }
     }
-
     public void TakeDamage(int d)
     {
         life -= d;
@@ -298,4 +301,5 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
             life = (float)stream.ReceiveNext();
         }
     }
+
 }
