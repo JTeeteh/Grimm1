@@ -354,7 +354,7 @@ MonoBehaviour:
   localIndicatorPrefab: {fileID: 9027182265499639806, guid: 975dda5b9e6b69744a8b469819d0cbca, type: 3}
   playerIndicator: {fileID: 1014213024193928292}
   hpbar: {fileID: 7967950183933134315}
-  life: 5
+  life: 1
 --- !u!95 &5168269451489752883
 Animator:
   serializedVersion: 5
