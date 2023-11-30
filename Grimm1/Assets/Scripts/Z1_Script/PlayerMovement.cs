@@ -233,6 +233,7 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
         }
     }
 
+
     public void ApplyBuff(GameObject newBulletPrefab, float newFireRate)
     {
         // Apply the buff

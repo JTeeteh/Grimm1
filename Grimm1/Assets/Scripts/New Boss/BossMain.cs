@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using System.Linq;
 using Photon.Pun;
+using UnityEngine.SceneManagement;
 public class BossMain : MonoBehaviourPunCallbacks
 {
     private Animator animator;
@@ -25,7 +26,8 @@ public class BossMain : MonoBehaviourPunCallbacks
     private Transform markedTarget;
     void Start()
     {
-        animator = GetComponent<Animator>();    
+        animator = GetComponent<Animator>();  
+        
     }
 
     // Update is called once per frame
@@ -33,19 +35,35 @@ public class BossMain : MonoBehaviourPunCallbacks
     {
 
         playerList = GameObject.FindGameObjectsWithTag("Player").ToList();
+        player = playerList.OrderByDescending(p => Vector2.Distance(transform.position, p.transform.position)).ToList()[0].transform;
 
-     AttackTimer += Time.deltaTime * animationModifier;
-        if (AttackTimer > 3)
-        {
-            if (Melee) { Attack(); }
-            else { Spawn(); }
+        AttackTimer += Time.deltaTime * animationModifier;
+            if (AttackTimer > 3)
+            {
+                if (Melee) 
+                {
+                    Attack(); 
+                }
+                else
+                { 
+                    Spawn(); 
+                }
+
             AttackTimer = 0;
         }
-       
-      distancePlayer = Vector3.Distance(transform.position, player.position);
-      animator.SetFloat("playerDistance", distancePlayer);
 
+        if (player != null)
+        {
+            distancePlayer = Vector3.Distance(transform.position, player.position);
+        }
+        animator.SetFloat("playerDistance", distancePlayer);
+
+        if (Bosshealth <= 0.0f)
+        {
+            animator.SetBool("alive", false);
+        }
     }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Player") 
@@ -59,7 +77,7 @@ public class BossMain : MonoBehaviourPunCallbacks
     {
         if (collision.gameObject.tag == "Player")
         {
-            Debug.Log(Melee);
+            //Debug.Log(Melee);
             Melee = false;
         }
 
@@ -92,5 +110,8 @@ public class BossMain : MonoBehaviourPunCallbacks
         if (markedTarget == null) return;
 
         transform.position = markedTarget.position;
+        
     }
+
+
 }

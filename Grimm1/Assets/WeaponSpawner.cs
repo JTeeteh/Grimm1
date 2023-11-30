@@ -26,11 +26,6 @@ public class WeaponSpawner : MonoBehaviourPun
             {
                 // Spawn the weaponPrefab using PhotonNetwork.Instantiate
                 currentWeapon = PhotonNetwork.Instantiate(weaponPrefab.name, transform.position, Quaternion.identity);
-                Debug.Log("Weapon spawned!");
-            }
-            else
-            {
-                Debug.Log("Waiting for the current weapon to be destroyed...");
             }
         }
     }

@@ -27,11 +27,20 @@ public class Bullet : MonoBehaviour
         
     }
 
-    public void OnCollisionEnter2D(Collision2D collision)
+    public void OnCollisionStay2D(Collision2D collision)
     {
-        if(collision.gameObject.CompareTag("wall"))
+        //if(collision.gameObject.CompareTag("Enemy"))
+        //    Destroy(this.gameObject);
+
+        if (collision.gameObject.layer == 9)
+        {
+            collision.gameObject.GetComponent<BossMain>().Bosshealth -= 1.0f;
             Destroy(this.gameObject);
+            Debug.Log("enemydetected");
+        }
+
+
     }
 
-    
+
 }
