@@ -119,15 +119,27 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
         jump = false;
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+    /*void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Enemy")
+        if (collision.gameObject.tag == "EnemyAttack")
         {
             if (canBeDamaged)
             {
                 TakeDamage(1);
                 IFrame();
                 Debug.Log("llllllllll");
+            }
+        }
+    }*/
+    public void TakeDamage(float d)
+    {
+        if(canBeDamaged == true)
+        {
+            life -= d;
+            if (life <= 0)
+            {
+                life = 0;
+                IFrame();
             }
         }
     }
@@ -141,7 +153,7 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
 
     IEnumerator EyeFrameTimer()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(10);
         boxCollider.enabled = true;
         canBeDamaged = true;
     }
@@ -286,14 +298,7 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
             Destroy(localIndicator);
         }
     }
-    public void TakeDamage(int d)
-    {
-        life -= d;
-        if (life <= 0)
-        {
-            life = 0;
-        }
-    }
+
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.IsWriting)
@@ -314,7 +319,13 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
         {
             if(life == 0) 
             {
-                SceneManager.LoadScene("Lobby");
+                Destroy(gameObject);
+                PhotonNetwork.Disconnect();
+
+                SceneManager.LoadScene("Loading");
+
+                PhotonNetwork.ConnectUsingSettings();
+
             }
         }
     }
