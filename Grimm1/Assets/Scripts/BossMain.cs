@@ -7,7 +7,7 @@ using UnityEngine.AI;
 using System.Linq;
 using Photon.Pun;
 using UnityEngine.SceneManagement;
-public class BossMain : MonoBehaviourPunCallbacks
+public class BossMain : MonoBehaviourPun, IPunObservable
 {
     private Animator animator;
     public float animationModifier = 1;
@@ -113,5 +113,18 @@ public class BossMain : MonoBehaviourPunCallbacks
         
     }
 
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            // We own this player: send the others our data
+            stream.SendNext(Bosshealth);
+        }
+        else
+        {
+            // Network player, receive data
+            Bosshealth = (float)stream.ReceiveNext();
+        }
+    }
 
 }

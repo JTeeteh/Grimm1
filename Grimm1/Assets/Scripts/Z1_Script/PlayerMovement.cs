@@ -1,6 +1,9 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using UnityEngine.SceneManagement;
+
 
 public class PlayerMovement : MonoBehaviourPun, IPunObservable
 {
@@ -96,6 +99,8 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
             }
         }
         hpbar.transform.localScale = new Vector2(0.6302553f * (life / 5), 0.03f);
+
+        gameover();
     }
 
     public void OnLanding()
@@ -300,6 +305,17 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
         {
             // Network player, receive data
             life = (float)stream.ReceiveNext();
+        }
+    }
+
+    private void gameover()
+    {
+        if (photonView.IsMine)
+        {
+            if(life == 0) 
+            {
+                SceneManager.LoadScene("Lobby");
+            }
         }
     }
 
