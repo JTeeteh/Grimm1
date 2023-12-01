@@ -278,7 +278,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animationModifier: 2
-  Bosshealth: 100000
+  Bosshealth: 5
   AttackTimer: 0
   MoveSpeed: 10
   player: {fileID: 0}

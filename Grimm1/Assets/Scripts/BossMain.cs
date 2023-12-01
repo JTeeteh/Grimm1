@@ -61,7 +61,17 @@ public class BossMain : MonoBehaviourPun, IPunObservable
         if (Bosshealth <= 0.0f)
         {
             animator.SetBool("alive", false);
+
         }
+    }
+    public void cum()
+    {
+        Destroy(gameObject);
+        PhotonNetwork.Disconnect();
+
+        SceneManager.LoadScene("Loading");
+
+        PhotonNetwork.ConnectUsingSettings();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

@@ -47,7 +47,6 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
 
     private void Start()
     {
-        //fireRate = 10f;
         bulletPrefab = bullet[0];
         canFire = true;
         timerStarted = false;
