@@ -47,7 +47,7 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
 
     private void Start()
     {
-        fireRate = 10f;
+        //fireRate = 10f;
         bulletPrefab = bullet[0];
         canFire = true;
         timerStarted = false;
@@ -224,23 +224,23 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
                 {
                     if (target.name == gun[0].name)
                     {
-                        ApplyBuff(bullet[0], 10f);
+                        ApplyBuff(bullet[0], 7f);
                     }
                     else if (target.name == gun[1].name)
                     {
-                        ApplyBuff(bullet[1], 5f);
+                        ApplyBuff(bullet[1], 15f);
                     }
                     else if (target.name == gun[2].name)
                     {
-                        ApplyBuff(bullet[2], 25f);
+                        ApplyBuff(bullet[2], 3f);
                     }
                     else if (target.name == gun[3].name)
                     {
-                        ApplyBuff(bullet[3], 20f);
+                        ApplyBuff(bullet[3], 10f);
                     }
                     else if (target.name == gun[4].name)
                     {
-                        ApplyBuff(bullet[4], 0.5f);
+                        ApplyBuff(bullet[4], 20f);
                     }
 
                     Debug.Log("Gun pickup - upgrade.");
@@ -282,7 +282,7 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
 
         // Buff timer is finished, reset to default bullet
         bulletPrefab = bullet[0];
-        fireRate = 10f;
+        fireRate = 7f;
         isBuffActive = false;
 
         // Optionally, you can update UI to indicate that the buff has ended
