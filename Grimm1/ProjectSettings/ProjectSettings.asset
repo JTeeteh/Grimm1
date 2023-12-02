@@ -100,7 +100,11 @@ PlayerSettings:
   xboxEnableFitness: 0
   visibleInBackground: 1
   allowFullscreenSwitch: 1
+<<<<<<< HEAD
   fullscreenMode: 1
+=======
+  fullscreenMode: 2
+>>>>>>> parent of 40160da (raid boss hp (use me sa presntation))
   xboxSpeechDB: 0
   xboxEnableHeadOrientation: 0
   xboxEnableGuest: 0

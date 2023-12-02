@@ -220,7 +220,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animationModifier: 2
+<<<<<<< HEAD
   Bosshealth: 1000
+=======
+  Bosshealth: 5
+>>>>>>> parent of 40160da (raid boss hp (use me sa presntation))
   AttackTimer: 0
   MoveSpeed: 10
   player: {fileID: 0}
