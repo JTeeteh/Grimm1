@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: treesprite
   m_EditorClassIdentifier: 
   m_Sprite: {fileID: 21300000, guid: 8e7451fc79f8f9e41b48a15aa0395433, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.6415094, g: 0.6415094, b: 0.6415094, a: 1}
   m_Transform:
     e00: 1
     e01: 0

@@ -1,6 +1,9 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using UnityEngine.SceneManagement;
+
 
 public class PlayerMovement : MonoBehaviourPun, IPunObservable
 {
@@ -20,32 +23,33 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
     public GameObject[] bullet;
     public GameObject[] gun;
 
-    public float fireRate = 10f;
-    private bool canFire = true;
-    private bool timerStarted = false;
+    private float nextTimeOfFire = 0;
+    public float fireRate;
+    private bool canFire;
+    private bool timerStarted;
 
     // Buff system variables
     private bool isBuffActive = false;
-
-    public float buffDuration = 10f;
+    private float buffDuration = 10f;
     private float timeLeftForBuff;
 
-    //playerindicator
     public GameObject localIndicatorPrefab;
     public Transform playerIndicator;
 
     private GameObject localIndicator; // Declare localIndicator at the class level
 
-    public float life;
-
     [SerializeField]
     private GameObject hpbar;
+
+    public float life;
 
     PhotonView view;
 
     private void Start()
     {
         bulletPrefab = bullet[0];
+        canFire = true;
+        timerStarted = false;
         view = GetComponent<PhotonView>();
 
         if (photonView.IsMine)
@@ -62,6 +66,7 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
         }
         life = 5;
     }
+
 
     void Update()
     {
@@ -92,8 +97,9 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
                 StartCoroutine(Fire());
             }
         }
-
         hpbar.transform.localScale = new Vector2(0.6302553f * (life / 5), 0.03f);
+
+        gameover();
     }
 
     public void OnLanding()
@@ -112,15 +118,27 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
         jump = false;
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+    /*void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Enemy")
+        if (collision.gameObject.tag == "EnemyAttack")
         {
             if (canBeDamaged)
             {
                 TakeDamage(1);
                 IFrame();
                 Debug.Log("llllllllll");
+            }
+        }
+    }*/
+    public void TakeDamage(float d)
+    {
+        if(canBeDamaged == true)
+        {
+            life -= d;
+            if (life <= 0)
+            {
+                life = 0;
+                IFrame();
             }
         }
     }
@@ -134,7 +152,7 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
 
     IEnumerator EyeFrameTimer()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(10);
         boxCollider.enabled = true;
         canBeDamaged = true;
     }
@@ -193,7 +211,6 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
         yield return new WaitForSeconds(1f / fireRate);
         canFire = true;
     }
-
     [PunRPC]
     private void OnTriggerEnter2D(Collider2D target)
     {
@@ -206,23 +223,23 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
                 {
                     if (target.name == gun[0].name)
                     {
-                        ApplyBuff(bullet[0], 10f);
+                        ApplyBuff(bullet[0], 7f);
                     }
                     else if (target.name == gun[1].name)
                     {
-                        ApplyBuff(bullet[1], 5f);
+                        ApplyBuff(bullet[1], 15f);
                     }
                     else if (target.name == gun[2].name)
                     {
-                        ApplyBuff(bullet[2], 25f);
+                        ApplyBuff(bullet[2], 3f);
                     }
                     else if (target.name == gun[3].name)
                     {
-                        ApplyBuff(bullet[3], 20f);
+                        ApplyBuff(bullet[3], 10f);
                     }
                     else if (target.name == gun[4].name)
                     {
-                        ApplyBuff(bullet[4], 0.5f);
+                        ApplyBuff(bullet[4], 20f);
                     }
 
                     Debug.Log("Gun pickup - upgrade.");
@@ -231,6 +248,7 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
             }
         }
     }
+
 
     public void ApplyBuff(GameObject newBulletPrefab, float newFireRate)
     {
@@ -263,7 +281,7 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
 
         // Buff timer is finished, reset to default bullet
         bulletPrefab = bullet[0];
-        fireRate = 10f;
+        fireRate = 7f;
         isBuffActive = false;
 
         // Optionally, you can update UI to indicate that the buff has ended
@@ -271,7 +289,6 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
 
         timerStarted = false; // Reset the timer flag
     }
-
     void OnDestroy()
     {
         // Destroy the local indicator only for the local player when the player is destroyed
@@ -281,14 +298,6 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
         }
     }
 
-    public void TakeDamage(int d)
-    {
-        life -= d;
-        if (life <= 0)
-        {
-            life = 0;
-        }
-    }
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.IsWriting)
@@ -302,4 +311,22 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
             life = (float)stream.ReceiveNext();
         }
     }
+
+    private void gameover()
+    {
+        if (photonView.IsMine)
+        {
+            if(life == 0) 
+            {
+                Destroy(gameObject);
+                PhotonNetwork.Disconnect();
+
+                SceneManager.LoadScene("Loading");
+
+                PhotonNetwork.ConnectUsingSettings();
+
+            }
+        }
+    }
+
 }

@@ -6,12 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Grimm_Scenes/Loading.unity
+    path: Assets/Scenes/Loading.unity
     guid: cf4db0b34786aa848afa6e913899d91d
   - enabled: 1
-    path: Assets/Scenes/Grimm_Scenes/Lobby.unity
+    path: Assets/Scenes/Lobby.unity
     guid: 270ee3fba67696a4994b62ba773e02e8
   - enabled: 1
-    path: Assets/Scenes/Grimm_Scenes/TestEnv.unity
-    guid: 15b15ccc851c9134f9b8e48a70a8e2b1
+    path: Assets/Scenes/MapDesign.unity
+    guid: a5a753322c6af6b46a1faaea2574ea23
   m_configObjects: {}

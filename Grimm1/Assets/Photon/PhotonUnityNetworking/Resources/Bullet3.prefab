@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2262435199176107101}
   - component: {fileID: 1772430104470497978}
   - component: {fileID: -5729950796986150957}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Bullet3
   m_TagString: Bullet
   m_Icon: {fileID: 0}
@@ -35,7 +35,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5852117763888804595
 SpriteRenderer:
@@ -128,7 +128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0c632185235cf04e88e82e89fe64891, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 40
+  speed: 65
   rb: {fileID: 5852117763888804594}
   lifeTime: 0.25
 --- !u!95 &2262435199176107101

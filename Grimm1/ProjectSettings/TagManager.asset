@@ -10,6 +10,10 @@ TagManager:
   - NextLevel
   - wall
   - PrevLevel
+  - Bound
+  - Platform
+  - Ground
+  - EnemyAttack
   layers:
   - Default
   - TransparentFX
@@ -20,9 +24,9 @@ TagManager:
   - Platforms
   - Objects
   - Background
-  - 
-  - 
-  - 
+  - Enemy
+  - Bullet
+  - Attack
   - 
   - 
   - 
